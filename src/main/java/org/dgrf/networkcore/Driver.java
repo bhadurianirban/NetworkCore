@@ -5,13 +5,23 @@
  */
 package org.dgrf.networkcore;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jgrapht.io.ImportException;
+
 /**
  *
  * @author dgrfi
  */
 public class Driver {
     public static void main (String args[]) {
-        String adjListFile = "/home/dgrfi/MEGA/DGRFFractal/testdata/network/Upload/Network.csv";
+        String adjListFile = "/home/bhaduri/MEGA/DGRFFractal/testdata/network/Upload/Network.csv";
+        BuildGraph bg = new BuildGraph(adjListFile);
+        try {
+            bg.testEdgeListDirectedUnweighted();
+        } catch (ImportException ex) {
+            Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
