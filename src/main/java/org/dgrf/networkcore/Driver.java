@@ -5,23 +5,28 @@
  */
 package org.dgrf.networkcore;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.jgrapht.io.ImportException;
+import org.jgrapht.Graph;
+import org.jgrapht.alg.scoring.ClusteringCoefficient;
+import org.jgrapht.graph.DefaultEdge;
 
 /**
  *
  * @author dgrfi
  */
 public class Driver {
-    public static void main (String args[]) {
-        String adjListFile = "/home/bhaduri/MEGA/DGRFFractal/testdata/network/Upload/Network.csv";
+
+    public static void main(String args[]) {
+        String adjListFile = "/home/dgrfi/MEGA/DGRFFractal/testdata/network/Upload/Network.csv";
         BuildGraph bg = new BuildGraph(adjListFile);
-        try {
-            bg.testEdgeListDirectedUnweighted();
-        } catch (ImportException ex) {
-            Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Graph<String, DefaultEdge> graph = bg.getGraph();
+        ClusteringCoefficient clusteringCoefficient = new ClusteringCoefficient(graph);
+        Double acc = clusteringCoefficient.getAverageClusteringCoefficient();
+        //Double lcc = clusteringCoefficient.getVertexScore("5");
+        System.out.println(acc);
+//        DefaultEdge de = graph.getEdge("7", "39");
+//        Double w = graph.getEdgeWeight(de);
+//        System.out.println(w);
+
     }
-    
+
 }
