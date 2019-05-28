@@ -16,11 +16,9 @@ import org.jgrapht.graph.DefaultEdge;
 public class Driver {
 
     public static void main(String args[]) {
-        String adjListFile = "/home/dgrfi/MEGA/DGRFFractal/testdata/network/Upload/Network.csv";
+        String adjListFile = "/home/bhaduri/MEGA/DGRFFractal/testdata/network/Upload/Network.csv";
         BuildGraph bg = new BuildGraph(adjListFile);
-        Graph<String, DefaultEdge> graph = bg.getGraph();
-        ClusteringCoefficient clusteringCoefficient = new ClusteringCoefficient(graph);
-        Double acc = clusteringCoefficient.getAverageClusteringCoefficient();
+        Double acc = new AverageClusteringCoefficient(adjListFile).getAverageClustertingCoeffient();
         //Double lcc = clusteringCoefficient.getVertexScore("5");
         System.out.println(acc);
 //        DefaultEdge de = graph.getEdge("7", "39");
