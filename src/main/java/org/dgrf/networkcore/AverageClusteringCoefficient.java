@@ -15,7 +15,7 @@ import org.jgrapht.graph.DefaultEdge;
  */
 public class AverageClusteringCoefficient {
     private final String adjListFile;
-    private Double averageClustertingCoeffient;
+    private final Double averageClustertingCoeffient;
     public AverageClusteringCoefficient(String adjListFile) {
         this.adjListFile = adjListFile;
         BuildGraph bg = new BuildGraph(adjListFile);
