@@ -5,10 +5,10 @@
  */
 package org.dgrf.networkcore;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.jgrapht.Graph;
-import org.jgrapht.GraphPath;
-import org.jgrapht.alg.interfaces.ShortestPathAlgorithm.SingleSourcePaths;
-import org.jgrapht.alg.shortestpath.FloydWarshallShortestPaths;
+import org.jgrapht.alg.shortestpath.JohnsonShortestPaths;
 import org.jgrapht.graph.DefaultEdge;
 
 /**
@@ -26,28 +26,29 @@ public class AverageShortestPath {
         calculate(graph);
     }
     private void calculate (Graph<String, DefaultEdge> graph) {
-        FloydWarshallShortestPaths<String, DefaultEdge> shortestPaths = new FloydWarshallShortestPaths(graph);
+        JohnsonShortestPaths<String, DefaultEdge> shortestPaths = new JohnsonShortestPaths(graph);
        //int totalShortestPathLength = 0;
         //int longestShortestPathLength = 0;
         //GraphPath<String, DefaultEdge> longestShortestPath = null;
         int totalPathCount = 0;
         Double allShortestPathSum = 0.0;
-        for (String sourceVertex : graph.vertexSet()) {
-            for (String sinkVertex:graph.vertexSet()) {
-                if (sourceVertex.equals(sinkVertex)) {
-                    System.out.println("Same");
-                } else {
-                    System.out.println("cal"+sourceVertex+" "+sinkVertex);
-                    GraphPath<String, DefaultEdge> shortestPath = shortestPaths.getPath(sourceVertex, sinkVertex);
-                    allShortestPathSum = shortestPath.getWeight();
-                    System.out.println("caldone"+sourceVertex+" "+sinkVertex);
+        Set<String> sourceVertexSet = new HashSet<>(graph.vertexSet());
+        Set<String> sinkVertexSet = new HashSet<>(graph.vertexSet());
+        for (String sourceVertex : sourceVertexSet) {
+            for (String sinkVertex: sinkVertexSet) {
+                if (!sourceVertex.equals(sinkVertex)) {
+                    
+                    allShortestPathSum = allShortestPathSum+shortestPaths.getPathWeight(sourceVertex, sinkVertex);
+                    
+                    //System.out.println(allShortestPathSum);
                     totalPathCount++;
                 }
             }
-            
+            sinkVertexSet.remove(sourceVertex);
         }
-         averageShortestPath =  allShortestPathSum / totalPathCount;
         
+        
+        averageShortestPath = allShortestPathSum/totalPathCount;
     }
 
     public Double getAverageShortestPath() {
