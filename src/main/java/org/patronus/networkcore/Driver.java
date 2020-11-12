@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.dgrf.networkcore;
+package org.patronus.networkcore;
 
 import java.math.BigDecimal;
 import java.util.AbstractSet;
